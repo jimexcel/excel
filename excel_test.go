@@ -24,7 +24,7 @@ func TestWrite(t *testing.T) {
 }
 
 func TestReadDir(t *testing.T) {
-	datas, err := GetDirAllFiles("datas")
+	datas, err := GetDirAllFiles("datas", ".xlsx")
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -10,8 +10,8 @@ import (
 	"github.com/360EntSecGroup-Skylar/excelize"
 )
 
-//获取指定目录下所有.xlsx文件
-func GetDirAllFiles(dirPath string) ([]string, error) {
+//获取指定目录下所有指定ext后缀的文件（如.xlsx）的文件
+func GetDirAllFiles(dirPath, ext string) ([]string, error) {
 	filenames := []string{}
 	rd, err := ioutil.ReadDir(dirPath)
 	if err != nil {
@@ -19,13 +19,13 @@ func GetDirAllFiles(dirPath string) ([]string, error) {
 	}
 	for _, fi := range rd {
 		if fi.IsDir() {
-			s, err := GetDirAllFiles(dirPath + fi.Name() + "/")
+			s, err := GetDirAllFiles(dirPath+fi.Name()+"/", ext)
 			if err != nil {
 				return []string{}, err
 			}
 			filenames = append(filenames, s...)
 		} else {
-			if filepath.Ext(dirPath+"/"+fi.Name()) == ".xlsx" {
+			if filepath.Ext(dirPath+"/"+fi.Name()) == ext {
 				filenames = append(filenames, dirPath+"/"+fi.Name())
 			}
 		}
